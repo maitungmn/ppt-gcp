@@ -4,12 +4,11 @@ let puppeteer = require('puppeteer');
 
 let app = express();
 // let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
-let urlJCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
+let urlCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', async function (req, res) {
     const browser = await puppeteer.launch({
-        headless: true,
         args: ['--no-sandbox']
     });
     const page = await browser.newPage();
