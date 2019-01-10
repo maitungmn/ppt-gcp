@@ -3,8 +3,8 @@ let request = require('request');
 let puppeteer = require('puppeteer');
 
 let app = express();
-let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
-// let urlJCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
+// let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
+let urlJCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', async function (req, res) {
@@ -13,7 +13,7 @@ app.get('/', async function (req, res) {
         args: ['--no-sandbox']
     });
     const page = await browser.newPage();
-    await page.goto(urlJP);
+    await page.goto(urlCN);
     const imageBuffer = await page.screenshot();
     res.set('Content-Type', 'image/png');
     res.send(imageBuffer);
