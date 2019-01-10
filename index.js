@@ -1,6 +1,5 @@
 let express = require('express');
 let request = require('request');
-let puppeteer = require('puppeteer');
 
 let app = express();
 let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
@@ -8,14 +7,13 @@ let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', async function (req, res) {
-    const browser = await puppeteer.launch({
-        args: ['--no-sandbox']
+    request.get({
+        url : urlJP,
+        time : true
+    },function(err, response){
+        // console.log('Request time in ms', response);
+        res.json({time: response.elapsedTime, image: response.body});
     });
-    const page = await browser.newPage();
-    await page.goto(urlJP);
-    const imageBuffer = await page.screenshot();
-    res.set('Content-Type', 'image/png');
-    res.send(imageBuffer);
 
 });
 
