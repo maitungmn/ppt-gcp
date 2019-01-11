@@ -26,5 +26,5 @@ app.get('/', async function (req, res) {
 
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 80);
 app.listen(app.get('port'));
