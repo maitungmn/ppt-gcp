@@ -26,5 +26,5 @@ app.get('/', async function (req, res) {
 let portSV = 80;
 app.set('port', process.env.PORT || portSV);
 app.listen(app.get('port'), () => {
-    console.log('%c Server is running at ' + portSV, 'background: #222; color: #bada55');
+    console.log('Server is running at PORT ' + portSV);
 });
