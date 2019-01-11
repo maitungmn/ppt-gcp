@@ -3,6 +3,12 @@ let request = require('request');
 let puppeteer = require('puppeteer');
 
 let app = express();
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
 // let urlJCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
 
