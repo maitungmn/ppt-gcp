@@ -23,7 +23,8 @@ app.get('/', async function (req, res) {
 
 });
 
-app.set('port', process.env.PORT || 80);
+let portSV = 80;
+app.set('port', process.env.PORT || portSV);
 app.listen(app.get('port'), () => {
-    console.log('%c Server is running at ' + app.get('port'), 'background: #222; color: #bada55');
+    console.log('%c Server is running at ' + portSV, 'background: #222; color: #bada55');
 });
