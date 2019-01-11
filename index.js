@@ -20,7 +20,7 @@ app.get('/', async function (req, res) {
     },function(err, response){
         // console.log('Request time in ms', response);
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({time: response.elapsedTime, image: typeof response.body}));
+        res.send(JSON.stringify({time: response.elapsedTime, image: response.body}));
         // res.json({time: response.elapsedTime, image: response.body});
     });
 
