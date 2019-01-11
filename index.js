@@ -19,7 +19,7 @@ app.get('/', async function (req, res) {
         time : true
     },function(err, response){
         // console.log('Request time in ms', response);
-        res.json({time: response.elapsedTime, image: urlJP});
+        res.json({time: response.elapsedTime, image: response.body});
     });
 
 });
