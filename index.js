@@ -12,7 +12,7 @@ app.use(function(req, res, next) {
 });
 
 // let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
-let urlJCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
+let urlJCN = "https://www.openstreetmap.org/#map=13/35.6919/139.7210";
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', async function (req, res) {
