@@ -26,8 +26,8 @@ app.get('/', async function (req, res) {
     let start = new Date();
     await page.goto(urlJP);
     const imageBuffer = await page.screenshot();
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({time: new Date() - start, image: imageBuffer}));
+    res.setHeader('Content-Type', 'image/png');
+    res.send(imageBuffer);
 
 });
 
