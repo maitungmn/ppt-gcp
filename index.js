@@ -2,6 +2,8 @@ let express = require('express');
 let request = require('request');
 let puppeteer = require('puppeteer');
 
+let port = 80;
+
 let app = express();
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -26,7 +28,7 @@ app.get('/', async function (req, res) {
 
 });
 
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || port);
 app.listen(app.get('port'), () => {
-    console.log('App is running on PORT 8080')
+    console.log('App is running on PORT ' + port)
 });
