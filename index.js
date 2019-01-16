@@ -9,22 +9,22 @@ app.use(function(req, res, next) {
     next();
 });
 
-let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
-// let urlJCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
+// let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
+let urlJCN = "https://fir-maps-e4e81.firebaseapp.com/osm/";
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', async function (req, res) {
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox']
-    });
+    res.set('Access-Control-Allow-Origin', "*");
+    res.set('Access-Control-Allow-Methods', 'GET, POST');
+    const browser = await puppeteer.launch({args: ['--no-sandbox']});
     const page = await browser.newPage();
-    await page.goto(urlJP);
+    let start = new Date();
+    await page.goto(urlJCN);
     const imageBuffer = await page.screenshot();
-    res.set('Content-Type', 'image/png');
-    res.send(imageBuffer);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({time: new Date() - start, image: imageBuffer}));
 
 });
 
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 8080);
 app.listen(app.get('port'));
