@@ -27,4 +27,6 @@ app.get('/', async function (req, res) {
 });
 
 app.set('port', process.env.PORT || 8080);
-app.listen(app.get('port'));
+app.listen(app.get('port'), () => {
+    console.log('App is running on PORT 8080')
+});
