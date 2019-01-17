@@ -1,5 +1,4 @@
 let express = require('express');
-let request = require('request');
 let puppeteer = require('puppeteer');
 
 let port = 8080;
