@@ -15,8 +15,6 @@ let urlJCN = "https://www.openstreetmap.org/#map=13/35.6919/139.7210";
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', async function (req, res) {
-    res.set('Access-Control-Allow-Origin', "*");
-    res.set('Access-Control-Allow-Methods', 'GET, POST');
     const browser = await puppeteer.launch({args: ['--no-sandbox']});
     const page = await browser.newPage();
     let start = new Date();
