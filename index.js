@@ -1,7 +1,7 @@
 let express = require('express');
 let puppeteer = require('puppeteer');
 
-let port = 8080;
+let port = 80;
 
 let app = express();
 app.use(function(req, res, next) {
