@@ -3,6 +3,12 @@ let request = require('request');
 let puppeteer = require('puppeteer');
 
 let app = express();
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
 let urlCN = "http://39.105.116.224:8080/osm";
 
@@ -19,6 +25,7 @@ app.get('/', async function (req, res) {
     const imageBuffer = await page.screenshot();
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({time: new Date() - start, image: imageBuffer}));
+    await page.close()
 
     // res.set('Content-Type', 'image/png');
     // res.send(imageBuffer);
