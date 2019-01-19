@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
-}
+const {TestRunner, Reporter} = require('..');
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+const runner = new TestRunner({ timeout: 100 });
+const reporter = new Reporter(runner);
+
+const {describe, xdescribe, fdescribe} = runner;
+const {it, fit, xit} = runner;
+const {beforeAll, beforeEach, afterAll, afterEach} = runner;
+
+describe('testsuite', () => {
+  it('timeout', async (state) => {
+    await new Promise(() => {});
+  });
+});
+
+runner.run();

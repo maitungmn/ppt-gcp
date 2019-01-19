@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Google Inc. All rights reserved.
+ * Copyright 2017 Google Inc., PhantomJS Authors All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
-}
+'use strict';
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+const puppeteer = require('puppeteer');
+
+(async() => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.setRequestInterception(true);
+  page.on('request', request => {
+    if (request.resourceType() === 'image')
+      request.abort();
+    else
+      request.continue();
+  });
+  await page.goto('https://news.google.com/news/');
+  await page.screenshot({path: 'news.png', fullPage: true});
+
+  await browser.close();
+})();
+

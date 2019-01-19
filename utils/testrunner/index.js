@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
-}
+const TestRunner = require('./TestRunner');
+const Reporter = require('./Reporter');
+const Matchers = require('./Matchers');
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+module.exports = { TestRunner, Reporter, Matchers };

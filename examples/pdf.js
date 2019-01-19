@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
-}
+'use strict';
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+const puppeteer = require('puppeteer');
+
+(async() => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://news.ycombinator.com', {waitUntil: 'networkidle2'});
+  // page.pdf() is currently supported only in headless mode.
+  // @see https://bugs.chromium.org/p/chromium/issues/detail?id=753118
+  await page.pdf({
+    path: 'hn.pdf',
+    format: 'letter'
+  });
+
+  await browser.close();
+})();

@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
-}
+'use strict';
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+const puppeteer = require('puppeteer');
+
+(async() => {
+  const browser = await puppeteer.launch({
+    // Launch chromium using a proxy server on port 9876.
+    // More on proxying:
+    //    https://www.chromium.org/developers/design-documents/network-settings
+    args: [ '--proxy-server=127.0.0.1:9876' ]
+  });
+  const page = await browser.newPage();
+  await page.goto('https://google.com');
+  await browser.close();
+})();

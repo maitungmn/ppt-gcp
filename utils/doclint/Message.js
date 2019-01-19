@@ -14,15 +14,31 @@
  * limitations under the License.
  */
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
+class Message {
+  /**
+   * @param {string} type
+   * @param {string} text
+   */
+  constructor(type, text) {
+    this.type = type;
+    this.text = text;
+  }
+
+  /**
+   * @param {string} text
+   * @return {!Message}
+   */
+  static error(text) {
+    return new Message('error', text);
+  }
+
+  /**
+   * @param {string} text
+   * @return {!Message}
+   */
+  static warning(text) {
+    return new Message('warning', text);
+  }
 }
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+module.exports = Message;

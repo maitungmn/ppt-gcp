@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
-}
+'use strict';
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+const puppeteer = require('puppeteer');
+
+(async() => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('http://example.com');
+  await page.screenshot({path: 'example.png'});
+  await browser.close();
+})();
