@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const PROJECT_ROOT = fs.existsSync(path.join(__dirname, 'package.json')) ? path.join(__dirname) : path.join(__dirname);
+const PROJECT_ROOT = fs.existsSync(path.join(__dirname, 'package.json')) ? path.join(__dirname) : path.join(__dirname, '..');
 
 const puppeteer = require(PROJECT_ROOT);
 
