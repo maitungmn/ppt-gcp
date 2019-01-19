@@ -1,28 +1,47 @@
-/**
- * Copyright 2017 Google Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+let express = require('express');
+let request = require('request');
+let puppeteer = require('puppeteer');
 
-let asyncawait = true;
-try {
-  new Function('async function test(){await 1}');
-} catch (error) {
-  asyncawait = false;
-}
+let app = express();
+let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
+let urlCN = "http://39.105.116.224:8080/osm";
 
-// If node does not support async await, use the compiled version.
-if (asyncawait)
-  module.exports = require('./lib/Puppeteer');
-else
-  module.exports = require('./node6/lib/Puppeteer');
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', async function (req, res) {
+    let start = new Date();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox']
+    });
+    const page = await browser.newPage();
+    const override = Object.assign(page.viewport(), {width: 1000});
+    await page.setViewport(override);
+    await page.goto(urlCN);
+    const imageBuffer = await page.screenshot();
+    // res.setHeader('Content-Type', 'application/json');
+    // res.send(JSON.stringify({time: new Date() - start, image: imageBuffer}));
+
+    res.set('Content-Type', 'image/png');
+    res.send(imageBuffer);
+
+});
+
+app.get('/jp', async function (req, res) {
+    let start = new Date();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox']
+    });
+    const page = await browser.newPage();
+    const override = Object.assign(page.viewport(), {width: 1000});
+    await page.setViewport(override);
+    await page.goto(urlJP);
+    const imageBuffer = await page.screenshot();
+    // res.setHeader('Content-Type', 'application/json');
+    // res.send(JSON.stringify({time: new Date() - start, image: imageBuffer}));
+
+    res.set('Content-Type', 'image/png');
+    res.send(imageBuffer);
+
+});
+
+app.set('port', process.env.PORT || 80);
+app.listen(app.get('port'));
