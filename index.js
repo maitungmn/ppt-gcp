@@ -9,7 +9,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-let urlJP = "https://fir-maps-e4e81.firebaseapp.com/";
+let urlHK = "http://47.244.107.231:8080/osm";
 let urlCN = "http://39.105.116.224:8080/osm";
 
 // respond with "hello world" when a GET request is made to the homepage
@@ -32,7 +32,7 @@ app.get('/', async function (req, res) {
 
 });
 
-app.get('/jp', async function (req, res) {
+app.get('/hk', async function (req, res) {
     let start = new Date();
     const browser = await puppeteer.launch({
         args: ['--no-sandbox']
@@ -41,7 +41,7 @@ app.get('/jp', async function (req, res) {
     const override = Object.assign(page.viewport(), {width: 1000});
     await page.setViewport(override);
     try {
-        await page.goto(urlJP);
+        await page.goto(urlHK);
         const imageBuffer = await page.screenshot();
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({time: new Date() - start, image: imageBuffer}));
