@@ -9,7 +9,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-let urlHK = "http://47.244.107.231:8080/osm";
+let urlHK = "http://47.244.107.231:8080/";
 let urlCN = "http://39.105.116.224:8080/osm";
 
 // respond with "hello world" when a GET request is made to the homepage
