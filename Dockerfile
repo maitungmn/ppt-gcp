@@ -6,6 +6,10 @@ RUN apt-get install -y \
     wget \
     gnupg \
     curl
+
+# Puppeteer ENV
+RUN PUPPETEER_DOWNLOAD_HOST = https://npm.taobao.org/mirrors
+
 # Node.js v10.x
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
