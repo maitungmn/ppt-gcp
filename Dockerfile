@@ -11,13 +11,12 @@ RUN apt-get install -y \
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
-# Puppeteer ENV
-RUN PUPPETEER_DOWNLOAD_HOST = https://npm.taobao.org/mirrors
+## Puppeteer ENV
+#RUN PUPPETEER_DOWNLOAD_HOST = https://npm.taobao.org/mirrors
 
 # Setup application
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install
-RUN npm link
 EXPOSE 8080
 CMD ["npm", "run", "start"]
