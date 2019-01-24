@@ -7,16 +7,17 @@ RUN apt-get install -y \
     gnupg \
     curl
 
-# Puppeteer ENV
-RUN PUPPETEER_DOWNLOAD_HOST = https://npm.taobao.org/mirrors
-
 # Node.js v10.x
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
+
+# Puppeteer ENV
+RUN PUPPETEER_DOWNLOAD_HOST = https://npm.taobao.org/mirrors
+
 # Setup application
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install
 RUN npm link
 EXPOSE 8080
-CMD ["elprice-api", "start"]
+CMD ["npm", "run", "start"]
