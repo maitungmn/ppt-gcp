@@ -2,6 +2,8 @@ let express = require('express');
 let request = require('request');
 let puppeteer = require('puppeteer');
 
+process.setMaxListeners(Infinity);
+
 let app = express();
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -86,4 +88,4 @@ app.get('/jp', async function (req, res) {
 });
 
 app.set('port', process.env.PORT || 8080);
-app.listen(app.get('port'));
+app.listen(app.get('port'), () => console.log('App is running on port ' + app.get('port')));
